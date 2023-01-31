@@ -30,7 +30,6 @@ def get_housing_data() -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     return X_train, X_test, y_train, y_test
 
 
-
 def main():
     """
     Run the main program, which trains a linear regression model on the

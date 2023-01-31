@@ -6,6 +6,7 @@ class LinearRegression:
     """
     A linear regression model that uses analytical solution to fit the model.
     """
+
     w: np.ndarray
     b: float
 
@@ -53,7 +54,6 @@ class GradientDescentLinearRegression(LinearRegression):
     A linear regression model that uses gradient descent to fit the model.
     """
 
-
     def fit(
         self, X: np.ndarray, y: np.ndarray, lr: float = 0.01, epochs: int = 1000
     ) -> None:
@@ -78,8 +78,8 @@ class GradientDescentLinearRegression(LinearRegression):
         X = torch.tensor(X).float()
         y = torch.tensor(y).float()
 
-        self.w = torch.rand(X.shape[1], requires_grad = True).float()
-        self.b = torch.rand(1, requires_grad = True).float()
+        self.w = torch.rand(X.shape[1], requires_grad=True).float()
+        self.b = torch.rand(1, requires_grad=True).float()
 
         for i in range(epochs):
             loss = ((X @ self.w + self.b - y) ** 2).sum()
@@ -93,8 +93,6 @@ class GradientDescentLinearRegression(LinearRegression):
 
         self.w = self.w.detach().numpy()
         self.b = self.b.detach().numpy()
-
-
 
     def predict(self, X: np.ndarray) -> np.ndarray:
         """
