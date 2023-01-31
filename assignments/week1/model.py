@@ -27,8 +27,8 @@ class LinearRegression:
 
         xTx = X.T @ X
 
-        # if np.abs(np.linalg.det(xTx)) < 1e-10:
-        #     raise Exception("Non-invertible matrix; no analytical solution")
+        if np.abs(np.linalg.det(xTx)) < 1e-10:
+            raise Exception("Non-invertible matrix; no analytical solution")
 
         result = np.linalg.inv(xTx) @ X.T @ y
 
