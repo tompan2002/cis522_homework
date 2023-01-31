@@ -2,13 +2,11 @@
     "assignment_name": "Assignment 1",
     "contributors": [
         {
-            "name": "Jordan Matelsky",
-            "pennkey": "matelsky"
+            "name": "Ian (Tom) Pan",
+            "pennkey": "tompan"
         }
     ],
     "sources": [
-        "https://example.com",
-        "Conversations with TA (include TA's name)",
-        "LLM (include information about the LLM and how it was used)"
+        "CIS_522_W2D1_Tutorial"
     ]
 }
