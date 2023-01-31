@@ -1,5 +1,6 @@
 import numpy as np
-import torch
+
+# import torch
 
 
 class LinearRegression:
@@ -66,33 +67,35 @@ class GradientDescentLinearRegression(LinearRegression):
         Returns:
             Nothing.
         """
-        # X = np.hstack((X, np.ones((X.shape[0], 1))))
+        X = np.hstack((X, np.ones((X.shape[0], 1))))
 
-        # self.w = np.ones(X.shape[1])
-        # for i in range(epochs):
-        #     grad = -2 * X.T @ y + 2 * X.T @ X @ self.w
-        #     print(f"X shape {X.shape}")
-        #     print(f"grad shape {grad.shape}")
-
-        #     self.w -= lr * grad
-        X = torch.tensor(X).float()
-        y = torch.tensor(y).float()
-
-        self.w = torch.rand(X.shape[1], requires_grad=True).float()
-        self.b = torch.rand(1, requires_grad=True).float()
+        self.w = np.random.rand(X.shape[1])
 
         for i in range(epochs):
-            loss = ((X @ self.w + self.b - y) ** 2).sum()
-            loss.backward()
+            grad = -2 * X.T @ y + 2 * X.T @ X @ self.w
+            print(f"X shape {X.shape}")
+            print(f"grad shape {grad.shape}")
 
-            with torch.no_grad():
-                self.w -= lr * self.w.grad
-                self.b -= lr * self.b.grad
-                self.w.grad.zero_()
-                self.b.grad.zero_()
+            self.w -= lr * grad
 
-        self.w = self.w.detach().numpy()
-        self.b = self.b.detach().numpy()
+        # X = torch.tensor(X).float()
+        # y = torch.tensor(y).float()
+
+        # self.w = torch.rand(X.shape[1], requires_grad=True).float()
+        # self.b = torch.rand(1, requires_grad=True).float()
+
+        # for i in range(epochs):
+        #     loss = ((X @ self.w + self.b - y) ** 2).sum()
+        #     loss.backward()
+
+        #     with torch.no_grad():
+        #         self.w -= lr * self.w.grad
+        #         self.b -= lr * self.b.grad
+        #         self.w.grad.zero_()
+        #         self.b.grad.zero_()
+
+        # self.w = self.w.detach().numpy()
+        # self.b = self.b.detach().numpy()
 
     def predict(self, X: np.ndarray) -> np.ndarray:
         """
@@ -105,4 +108,4 @@ class GradientDescentLinearRegression(LinearRegression):
             np.ndarray: The predicted output.
 
         """
-        return X @ self.w + self.b
+        return X @ self.w[:-1] + self.w[-1]
