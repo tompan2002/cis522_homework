@@ -2,7 +2,31 @@ import torch
 from typing import Callable
 
 
-class MLP:
+class MLP(torch.nn.Module):
+    """
+    A class to represent a MLP.
+
+    Attributes
+    ----------
+    input_size : int
+        Input dimension
+    hidden_size : int
+        Size of hidden layer
+    num_classes : int
+        Number of classes in the data
+    hidden_count : int
+        Number of hidden layers
+    activation : Callable
+        Activation function choice
+    initializer : Callable
+        Initializer choice
+
+    Functions
+    -----------
+    forward(x):
+        Forward pass of the network
+    """
+
     def __init__(
         self,
         input_size: int,
@@ -22,9 +46,31 @@ class MLP:
             activation: The activation function to use in the hidden layer.
             initializer: The initializer to use for the weights.
         """
-        ...
+        super(MLP, self).__init__()
 
-    def forward(self, x):
+        activation_function = activation()
+
+        self.net = torch.nn.Sequential(
+            torch.nn.Linear(input_size, 1568),
+            activation_function,
+            torch.nn.Dropout(p=0.1),
+            torch.nn.BatchNorm1d(1568),
+            torch.nn.Linear(1568, 3136),
+            activation_function,
+            torch.nn.Dropout(p=0.25),
+            torch.nn.BatchNorm1d(3136),
+            torch.nn.Linear(3136, 1568),
+            activation_function,
+            torch.nn.Dropout(p=0.25),
+            torch.nn.BatchNorm1d(1568),
+            torch.nn.Linear(1568, 392),
+            activation_function,
+            torch.nn.Dropout(p=0.25),
+            torch.nn.BatchNorm1d(392),
+            torch.nn.Linear(392, num_classes),
+        )
+
+    def forward(self, x: torch.tensor) -> torch.tensor:
         """
         Forward pass of the network.
 
@@ -34,4 +80,4 @@ class MLP:
         Returns:
             The output of the network.
         """
-        ...
+        return self.net(x)
