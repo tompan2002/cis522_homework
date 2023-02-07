@@ -51,15 +51,19 @@ class MLP(torch.nn.Module):
         activation_function = activation()
 
         self.net = torch.nn.Sequential(
-            torch.nn.Linear(input_size, 1568),
+            torch.nn.Linear(input_size, 784),
             activation_function,
             torch.nn.Dropout(p=0.15),
-            torch.nn.BatchNorm1d(1568),
+            torch.nn.BatchNorm1d(784),
             # torch.nn.Linear(1568, 1568),
             # activation_function,
             # torch.nn.Dropout(p=0.25),
             # torch.nn.BatchNorm1d(1568),
-            torch.nn.Linear(1568, 784),
+            torch.nn.Linear(784, 784),
+            activation_function,
+            torch.nn.Dropout(p=0.5),
+            torch.nn.BatchNorm1d(784),
+            torch.nn.Linear(784, 784),
             activation_function,
             torch.nn.Dropout(p=0.5),
             torch.nn.BatchNorm1d(784),
