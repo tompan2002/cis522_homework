@@ -53,7 +53,7 @@ class MLP(torch.nn.Module):
         self.net = torch.nn.Sequential(
             torch.nn.Linear(input_size, 1568),
             activation_function,
-            torch.nn.Dropout(p=0.1),
+            torch.nn.Dropout(p=0.2),
             torch.nn.BatchNorm1d(1568),
             # torch.nn.Linear(1568, 1568),
             # activation_function,
@@ -63,11 +63,15 @@ class MLP(torch.nn.Module):
             # activation_function,
             # torch.nn.Dropout(p=0.5),
             # torch.nn.BatchNorm1d(784),
-            torch.nn.Linear(1568, 784),
+            torch.nn.Linear(1568, 392),
             activation_function,
-            torch.nn.Dropout(p=0.1),
-            torch.nn.BatchNorm1d(784),
-            torch.nn.Linear(784, num_classes),
+            torch.nn.Dropout(p=0.2),
+            torch.nn.BatchNorm1d(392),
+            torch.nn.Linear(392, 98),
+            activation_function,
+            torch.nn.Dropout(p=0.2),
+            torch.nn.BatchNorm1d(98),
+            torch.nn.Linear(98, num_classes),
         )
 
     def forward(self, x: torch.tensor) -> torch.tensor:
