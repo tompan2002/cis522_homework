@@ -20,19 +20,19 @@ class Model(torch.nn.Module):
         super().__init__()
         self.features = nn.Sequential(
             nn.Conv2d(
-                in_channels=num_channels, out_channels=12, kernel_size=3, padding=1
+                in_channels=num_channels, out_channels=9, kernel_size=3, padding=1
             ),
             nn.ReLU(),
-            nn.BatchNorm2d(12),
+            nn.BatchNorm2d(9),
             nn.MaxPool2d(kernel_size=3, stride=3, padding=1),
-            nn.Conv2d(in_channels=12, out_channels=21, kernel_size=2, padding=1),
+            nn.Conv2d(in_channels=9, out_channels=24, kernel_size=2, padding=1),
             nn.ReLU(),
-            nn.BatchNorm2d(21),
+            nn.BatchNorm2d(24),
             nn.MaxPool2d(kernel_size=2, stride=2, padding=1),
             nn.Flatten(),
         )
 
-        self.classifier = nn.Sequential(nn.Linear(7 * 7 * 21, num_classes))
+        self.classifier = nn.Sequential(nn.Linear(7 * 7 * 24, num_classes))
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """
