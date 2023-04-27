@@ -15,9 +15,9 @@ class QNetwork(nn.Module):
         Docstring
         """
         super(QNetwork, self).__init__()
-        self.fc1 = nn.Linear(observation_space, 16)
-        self.fc2 = nn.Linear(16, 16)
-        self.fc3 = nn.Linear(16, action_space)
+        self.fc1 = nn.Linear(observation_space, 128)
+        self.fc2 = nn.Linear(128, 64)
+        self.fc3 = nn.Linear(64, action_space)
 
     def forward(self, x):
         """
