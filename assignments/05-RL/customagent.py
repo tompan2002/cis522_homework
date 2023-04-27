@@ -6,7 +6,14 @@ import torch.optim as optim
 
 
 class QNetwork(nn.Module):
+    """
+    Docstring
+    """
+
     def __init__(self, observation_space, action_space):
+        """
+        Docstring
+        """
         super(QNetwork, self).__init__()
         self.fc1 = nn.Linear(observation_space, 32)
         self.fc2 = nn.Linear(32, 32)
@@ -15,6 +22,9 @@ class QNetwork(nn.Module):
         self.fc5 = nn.Linear(32, action_space)
 
     def forward(self, x):
+        """
+        Docstring
+        """
         x = torch.relu(self.fc1(x))
         x = torch.relu(self.fc2(x))
         x = torch.relu(self.fc3(x))
@@ -24,9 +34,16 @@ class QNetwork(nn.Module):
 
 
 class Agent:
+    """
+    Docstring
+    """
+
     def __init__(
         self, action_space: gym.spaces.Discrete, observation_space: gym.spaces.Box
     ):
+        """
+        Docstring
+        """
         self.action_space = action_space
         self.observation_space = observation_space
         self.q_network = QNetwork(observation_space.shape[0], action_space.n).float()
@@ -39,6 +56,9 @@ class Agent:
         self.last_action = None
 
     def act(self, observation: gym.spaces.Box) -> gym.spaces.Discrete:
+        """
+        Docstring
+        """
         if np.random.uniform(0, 1) < self.epsilon:
             action = self.action_space.sample()
         else:
@@ -57,6 +77,9 @@ class Agent:
         terminated: bool,
         truncated: bool,
     ) -> None:
+        """
+        Docstring
+        """
         action = self.last_action
         q_values = self.q_network(
             torch.tensor(observation, dtype=torch.float32).unsqueeze(0)
