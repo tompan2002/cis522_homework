@@ -15,13 +15,10 @@ class QNetwork(nn.Module):
         Docstring
         """
         super(QNetwork, self).__init__()
-        self.fc1 = nn.Linear(observation_space, 64)
-        self.fc2 = nn.Linear(64, 64)
-        self.fc3 = nn.Linear(64, 64)
-        self.fc4 = nn.Linear(64, 64)
-        self.fc5 = nn.Linear(64, 64)
-        self.fc6 = nn.Linear(64, 64)
-        self.fc7 = nn.Linear(64, action_space)
+        self.fc1 = nn.Linear(observation_space, 32)
+        self.fc2 = nn.Linear(32, 32)
+        self.fc3 = nn.Linear(32, 32)
+        self.fc7 = nn.Linear(32, action_space)
 
     def forward(self, x):
         """
@@ -30,9 +27,9 @@ class QNetwork(nn.Module):
         x = torch.relu(self.fc1(x))
         x = torch.relu(self.fc2(x))
         x = torch.relu(self.fc3(x))
-        x = torch.relu(self.fc4(x))
-        x = torch.relu(self.fc5(x))
-        x = torch.relu(self.fc6(x))
+        # x = torch.relu(self.fc4(x))
+        # x = torch.relu(self.fc5(x))
+        # x = torch.relu(self.fc6(x))
 
         x = self.fc7(x)
         return x
