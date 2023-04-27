@@ -8,14 +8,18 @@ import torch.optim as optim
 class QNetwork(nn.Module):
     def __init__(self, observation_space, action_space):
         super(QNetwork, self).__init__()
-        self.fc1 = nn.Linear(observation_space, 64)
-        self.fc2 = nn.Linear(64, 64)
-        self.fc3 = nn.Linear(64, action_space)
+        self.fc1 = nn.Linear(observation_space, 32)
+        self.fc2 = nn.Linear(32, 32)
+        self.fc3 = nn.Linear(32, 32)
+        self.fc4 = nn.Linear(32, 32)
+        self.fc5 = nn.Linear(32, action_space)
 
     def forward(self, x):
         x = torch.relu(self.fc1(x))
         x = torch.relu(self.fc2(x))
-        x = self.fc3(x)
+        x = torch.relu(self.fc3(x))
+        x = torch.relu(self.fc4(x))
+        x = self.fc5(x)
         return x
 
 
@@ -27,7 +31,7 @@ class Agent:
         self.observation_space = observation_space
         self.q_network = QNetwork(observation_space.shape[0], action_space.n).float()
         self.optimizer = optim.Adam(
-            self.q_network.parameters(), lr=0.001, weight_decay=1e-6
+            self.q_network.parameters(), lr=0.001, weight_decay=1e-5
         )
         self.loss_fn = nn.MSELoss()
         self.gamma = 0.97
